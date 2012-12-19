@@ -1,0 +1,17 @@
+#!/bin/sh
+
+case    `uname` in
+"FreeBSD")
+    make clean
+    make depend
+    make
+    ;;
+"Darwin")
+    make clean
+    rm Makefile.depend
+    touch Makefile.depend
+    make LOCALBASE=/opt/local depend
+    make LOCALBASE=/opt/local PREFIX=/opt/local HIDLIB=hid
+    ;;
+esac
+

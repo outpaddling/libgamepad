@@ -1,0 +1,90 @@
+.TH LIBGAMEPAD 3
+.SH NAME    \" Section header
+.PP
+
+libgamepad \- Unix gamepad and joystick API
+
+\" Convention:
+\" Underline anything that is typed verbatim - commands, etc.
+.SH SYNOPSIS
+.PP
+.nf 
+.na
+#include <libgamepad/gamepad.h>
+
+cc -o executable files -lgamepad
+.ad
+.fi
+
+.SH "DESCRIPTION"
+
+.B Libgamepad
+is a C library providing a standardized API for gamepad and joystick 
+devices under various Unix-like platforms.
+It consists of a high-level device-independent,
+interface-independent API layer which provides basic functionality
+for any USB gamepad or analog joystick.
+
+The top level API has no knowledge of devices or interfaces, and utilizes
+the lower interface-dependent layer to access the devices.
+
+Currently supported interfaces include the analog joystick driver (e.g.
+/dev/joy0 on FreeBSD) and the usbhid driver (E.g. /dev/uhid0 on FreeBSD).
+Future plans include support for the user-level libhid and potentially
+other interfaces.
+
+.SH "API FUNCTIONS"
+
+.nf
+.na
+
+/* I/O */
+gamepad_t *gamepad_open(const char *device, 
+			gamepad_interface_t interface, int io_flags);
+int gamepad_read(gamepad_t *gp);
+void gamepad_close(gamepad_t *gp);
+
+/* Accessing data from last gamepad_read() */
+int gamepad_x(gamepad_t *gp);
+int gamepad_y(gamepad_t *gp);
+int gamepad_z(gamepad_t *gp);
+int gamepad_rz(gamepad_t *gp);
+int gamepad_hat_switch(gamepad_t *gp);
+int gamepad_button(gamepad_t *gp, int button);
+int gamepad_num_buttons(gamepad_t *gp);
+
+/* Device information */
+int gamepad_max_x(gamepad_t *gp);
+int gamepad_max_y(gamepad_t *gp);
+int gamepad_max_z(gamepad_t *gp);
+int gamepad_max_rz(gamepad_t *gp);
+
+/* Mode control */
+void gamepad_set_nonblock(gamepad_t *gp);
+void gamepad_unset_nonblock(gamepad_t *gp);
+.ad
+.fi
+
+.SH FILES
+.nf
+.na
+/usr/share/misc/usb_hid_usages
+.ad
+.fi
+
+.SH "EXAMPLES"
+
+Please see gamepad_test.c.
+
+.SH "SEE ALSO"
+joy(4), usbhid(3), uhid(4), usbdevs(1), libhid
+
+.SH BUGS
+This is an alpha quality library.  Documentation, more features, and
+plenty of bug fixes to come.
+
+.SH AUTHOR
+.nf
+.na
+Jason W. Bacon
+

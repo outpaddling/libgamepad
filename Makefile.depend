@@ -1,0 +1,16 @@
+gamepad.o: gamepad.c gamepad.h gamepad_analog.h gamepad_usbhid.h
+	${CC} -c ${CFLAGS} gamepad.c
+
+gamepad_analog.o: gamepad_analog.c gamepad_analog.h
+	${CC} -c ${CFLAGS} gamepad_analog.c
+
+gamepad_libhid.o: gamepad_libhid.c
+	${CC} -c ${CFLAGS} gamepad_libhid.c
+
+gamepad_test.o: gamepad_test.c gamepad.h gamepad_analog.h \
+  gamepad_usbhid.h
+	${CC} -c ${CFLAGS} gamepad_test.c
+
+gamepad_usbhid.o: gamepad_usbhid.c gamepad_usbhid.h
+	${CC} -c ${CFLAGS} gamepad_usbhid.c
+
