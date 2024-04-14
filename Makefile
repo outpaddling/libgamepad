@@ -11,7 +11,6 @@ LIBS    = ${LIB1}
 HIDLIB  = usbhid
 HEADERS = gamepad.h gamepad_usbhid.h gamepad_analog.h gamepad_libhid.h
 MAN3    = libgamepad.3
-SCRIPTS =
 
 ############################################################################
 # List object files that comprise BIN1, BIN2, LIB1, LIB2, etc.
@@ -26,12 +25,9 @@ OBJS    = ${OBJS1}
 
 # Install in /usr/local, unless defined by the parent Makefile, the
 # environment, or a command line option such as PREFIX=/opt/local.
-PREFIX  ?= /usr/local
-MANPREFIX ?= ${PREFIX}
-
-# Where to find local libraries and headers.  For MacPorts, override
-# with LOCALBASE=/opt/local.
-LOCALBASE ?= /usr/local
+PREFIX      ?= ../local
+MANPREFIX   ?= ${PREFIX}
+LOCALBASE   ?= ${PREFIX}
 
 ############################################################################
 # Build flags
@@ -119,47 +115,18 @@ realclean: clean
 # Install all target files (binaries, libraries, docs, etc.)
 
 install: all
-	mkdir -p ${PREFIX}/bin ${PREFIX}/lib ${PREFIX}/include/libgamepad \
-		${PREFIX}/man/man1 ${PREFIX}/man/man3
-	@for file in ${BINS} ; do \
-	    ${INSTALL} -s -c -m 0555 $${file} ${PREFIX}/bin; \
+	mkdir -p ${DESTDIR}${PREFIX}/bin ${DESTDIR}${PREFIX}/lib \
+		 ${DESTDIR}${PREFIX}/include/libgamepad \
+		 ${DESTDIR}${PREFIX}/man/man3
+	for file in ${BINS} ; do \
+	    ${INSTALL} -s -c -m 0555 $${file} ${DESTDIR}${PREFIX}/bin; \
 	done
-	@for file in ${SCRIPTS} ; do \
-	    ${INSTALL} -c -m 0555 $${file} ${PREFIX}/bin; \
+	for file in ${HEADERS} ; do \
+	    ${INSTALL} -c -m 0444 $${file} ${DESTDIR}${PREFIX}/include/libgamepad; \
 	done
-	@for file in ${HEADERS} ; do \
-	    ${INSTALL} -c -m 0444 $${file} ${PREFIX}/include/libgamepad; \
+	for file in ${LIBS} ; do \
+	    ${INSTALL} -c -m 0444 $${file} ${DESTDIR}${PREFIX}/lib; \
 	done
-	@for file in ${LIBS} ; do \
-	    ${INSTALL} -c -m 0444 $${file} ${PREFIX}/lib; \
-	done
-	@for file in ${MAN1} ; do \
-	    ${INSTALL} -c -m 0444 $${file} ${MANPREFIX}/man/man1; \
-	done
-	@for file in ${MAN3} ; do \
-	    ${INSTALL} -c -m 0444 $${file} ${MANPREFIX}/man/man3; \
-	done
-
-
-############################################################################
-# Remove all installed files
-
-uninstall:
-	@for file in ${BINS} ; do \
-	    ${RM} ${PREFIX}/bin/$${file}; \
-	done
-	@for file in ${SCRIPTS} ; do \
-	    ${RM} ${PREFIX}/bin/$${file}; \
-	done
-	@for file in ${HEADERS} ; do \
-	    ${RM} ${PREFIX}/include/$${file}; \
-	done
-	@for file in ${LIBS} ; do \
-	    ${RM} ${PREFIX}/lib/$${file}; \
-	done
-	@for file in ${MAN1} ; do \
-	    ${RM} ${MANPREFIX}/man/man1/$${file}; \
-	done
-	@for file in ${MAN3} ; do \
-	    ${RM} ${MANPREFIX}/man/man3/$${file}; \
+	for file in ${MAN3} ; do \
+	    ${INSTALL} -c -m 0444 $${file} ${DESTDIR}${MANPREFIX}/man/man3; \
 	done

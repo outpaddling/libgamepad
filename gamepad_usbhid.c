@@ -41,8 +41,8 @@ gamepad_usbhid_t   *gamepad_usbhid_open(const char *file,int io_flags)
 
 {
     gamepad_usbhid_t   *gp;
-    int         usage,
-		usage_page;
+    //int         usage,
+    //            usage_page;
     
     /* Allocate and initialize gp structure */
     gp = gamepad_usbhid_init();
@@ -81,8 +81,8 @@ gamepad_usbhid_t   *gamepad_usbhid_open(const char *file,int io_flags)
 
     for (gp->item_count=0; hid_get_item(gp->hid_data,gp->hid_items+gp->item_count) > 0; )
     {
-	usage_page = gp->hid_items[gp->item_count]._usage_page >> 16;
-	usage = gp->hid_items[gp->item_count].usage;
+	// usage_page = gp->hid_items[gp->item_count]._usage_page >> 16;
+	// usage = gp->hid_items[gp->item_count].usage;
     
 	/* Record indexes of known usages so they can be accessed
 	   directly. */
