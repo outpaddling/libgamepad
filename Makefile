@@ -44,7 +44,7 @@ CFLAGS  ?= -O
 
 INCLUDES+= -I${LOCALBASE}/include
 CFLAGS  += ${INCLUDES}
-LFLAGS1 += -L. -L${LOCALBASE}/lib -l${HIDLIB} -lgamepad -lbacon
+LFLAGS1 += -L. -L${LOCALBASE}/lib -l${HIDLIB} -lgamepad
 LFLAGS2 += -L. -L${LOCALBASE}/lib -lgamepad
 
 ############################################################################

@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sysexits.h>
-#include <bacon.h>
 #include "gamepad_usbhid.h"
 
 #define USB_GAMEPAD "/dev/uhid0"
