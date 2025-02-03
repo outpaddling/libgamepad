@@ -23,11 +23,19 @@ OBJS    = ${OBJS1}
 # Override from the command line with "make VAR=value"
 # or by setting in the parent Makefile.
 
-# Install in /usr/local, unless defined by the parent Makefile, the
+# Install in ../local, unless defined by the parent Makefile, the
 # environment, or a command line option such as PREFIX=/opt/local.
+# FreeBSD ports sets this to /usr/local, MacPorts to /opt/local, etc.
 PREFIX      ?= ../local
-MANPREFIX   ?= ${PREFIX}
+
+# Where to find local libraries and headers.  If you want to use libraries
+# from outside ${PREFIX} (not usually recommended), you can set this
+# independently.
 LOCALBASE   ?= ${PREFIX}
+
+# Allow caller to override either MANPREFIX or MANDIR
+MANPREFIX   ?= ${PREFIX}
+MANDIR      ?= ${MANPREFIX}/share/man
 
 ############################################################################
 # Build flags
