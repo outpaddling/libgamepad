@@ -125,7 +125,7 @@ realclean: clean
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin ${DESTDIR}${PREFIX}/lib \
 		 ${DESTDIR}${PREFIX}/include/libgamepad \
-		 ${DESTDIR}${MANPREFIX}/man/man3
+		 ${DESTDIR}${MANDIR}/man3
 	for file in ${BINS} ; do \
 	    ${INSTALL} -s -c -m 0555 $${file} ${DESTDIR}${PREFIX}/bin; \
 	done
@@ -136,5 +136,5 @@ install: all
 	    ${INSTALL} -c -m 0444 $${file} ${DESTDIR}${PREFIX}/lib; \
 	done
 	for file in ${MAN3} ; do \
-	    ${INSTALL} -c -m 0444 $${file} ${DESTDIR}${MANPREFIX}/man/man3; \
+	    ${INSTALL} -c -m 0444 $${file} ${DESTDIR}${MANDIR}/man3; \
 	done
